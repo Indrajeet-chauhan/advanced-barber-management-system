@@ -1,0 +1,10 @@
+Advanced Barber Management System
+|
+|-- app.py                 Flask routes and business logic
+|-- database.py            SQLite schema and seed data
+|-- ai_assistant.py        ML intent classifier / fallback rules
+|-- requirements.txt       Python dependencies
+|-- README.md              Setup instructions
+|-- templates/             HTML pages
+|-- static/style.css       Responsive dashboard styling
+|-- barber_management.db   Auto-created on first run (not included in ZIP)

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}BarberPro{% endblock %} · BarberPro</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><span class="brand-mark">✂</span><div><b>BarberPro</b><small>SHOP MANAGEMENT</small></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav>
+  <a href="{{ url_for('dashboard') }}">▦ <span>Dashboard</span></a>
+  <a href="{{ url_for('appointments') }}">▣ <span>Appointments</span></a>
+  <a href="{{ url_for('customers') }}">♙ <span>Customers</span></a>
+  <a href="{{ url_for('staff') }}">♟ <span>Barber staff</span></a>
+  <a href="{{ url_for('services') }}">✂ <span>Services & pricing</span></a>
+  <a href="{{ url_for('billing') }}">₹ <span>Billing / POS</span></a>
+  <a href="{{ url_for('inventory') }}">▤ <span>Inventory</span></a>
+  <a href="{{ url_for('reports') }}">▥ <span>Reports</span></a>
+  <a href="{{ url_for('chat') }}">✧ <span>AI assistant</span></a>
+  </nav>
+  <div class="sidebar-foot">PYTHON · AIML · SQLITE</div>
+</aside>
+<main class="main">
+<header class="topbar"><div><span class="eyebrow">BARBERSHOP OPERATIONS</span><h1>{% block heading %}Dashboard{% endblock %}</h1></div><div class="today">{{ now_label if now_label else "Management workspace" }}</div></header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}<div class="flash-stack">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+<footer>BarberPro · Local management system · Keep your database backed up</footer>
+</main>
+</body></html>

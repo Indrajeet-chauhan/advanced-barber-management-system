@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block heading %}Dashboard overview{% endblock %}
+{% block content %}
+<div class="welcome"><div><span class="eyebrow light">YOUR SHOP AT A GLANCE</span><h2>Good work starts with a great plan.</h2><p>Manage appointments, clients, services and shop performance in one place.</p></div><a class="btn light-btn" href="{{ url_for('appointments') }}">＋ Book appointment</a></div>
+<div class="stats">
+<div class="stat"><span class="stat-icon purple">♙</span><span class="muted">Total customers</span><strong>{{ stats.customers }}</strong><small>Registered clients</small></div>
+<div class="stat"><span class="stat-icon blue">▣</span><span class="muted">Today's appointments</span><strong>{{ stats.appointments }}</strong><small>Scheduled for today</small></div>
+<div class="stat"><span class="stat-icon green">₹</span><span class="muted">Today's revenue</span><strong>{{ stats.revenue|money }}</strong><small>From created bills</small></div>
+<div class="stat"><span class="stat-icon orange">▤</span><span class="muted">Low-stock items</span><strong>{{ stats.low_stock }}</strong><small>Need a stock check</small></div>
+</div>
+<div class="two-col">
+<section class="panel"><div class="panel-head"><div><h3>Upcoming appointments</h3><p>Next scheduled visits</p></div><a href="{{ url_for('appointments') }}">View all →</a></div>
+<div class="table-wrap"><table><thead><tr><th>Client</th><th>Service</th><th>Date & time</th><th>Status</th></tr></thead><tbody>
+{% for a in upcoming %}<tr><td><b>{{ a.customer_name }}</b><small>{{ a.staff_name or "Unassigned" }}</small></td><td>{{ a.service_name }}</td><td>{{ a.appointment_date }}<small>{{ a.appointment_time }}</small></td><td><span class="pill">{{ a.status }}</span></td></tr>{% else %}<tr><td colspan="4" class="empty">No upcoming appointments. Add your first booking.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><div class="panel-head"><div><h3>Recent bills</h3><p>Latest transactions</p></div><a href="{{ url_for('billing') }}">Open billing →</a></div>
+<div class="bill-list">{% for b in recent_bills %}<div class="bill-row"><div class="avatar">{{ b.customer_name[:1]|upper }}</div><div class="grow"><b>{{ b.customer_name }}</b><small>Bill #{{ b.id }} · {{ b.created_at }}</small></div><strong>{{ b.total|money }}</strong></div>{% else %}<div class="empty">Bills will appear here after checkout.</div>{% endfor %}</div>
+</section></div>
+<div class="quick-grid"><a class="quick-card" href="{{ url_for('customers') }}"><span>♙</span><b>Add a customer</b><small>Build your client list</small></a><a class="quick-card" href="{{ url_for('services') }}"><span>✂</span><b>Manage services</b><small>Update prices and duration</small></a><a class="quick-card" href="{{ url_for('inventory') }}"><span>▤</span><b>Check inventory</b><small>Track shop supplies</small></a><a class="quick-card" href="{{ url_for('reports') }}"><span>▥</span><b>View reports</b><small>Understand shop performance</small></a></div>
+{% endblock %}
